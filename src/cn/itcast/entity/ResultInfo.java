@@ -4,14 +4,20 @@ import java.util.List;
 
 public class ResultInfo {
 
-	
-	private Integer speed;	//平均速度
+
+	private Double distance;
+	private Double speed;	//平均速度
 	private List<TaskInfo> list;
-	
-	public Integer getSpeed() {
+	public Double getDistance() {
+		return distance;
+	}
+	public void setDistance(Double distance) {
+		this.distance = distance;
+	}
+	public Double getSpeed() {
 		return speed;
 	}
-	public void setSpeed(Integer speed) {
+	public void setSpeed(Double speed) {
 		this.speed = speed;
 	}
 	public List<TaskInfo> getList() {

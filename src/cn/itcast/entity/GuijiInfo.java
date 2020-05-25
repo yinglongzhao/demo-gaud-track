@@ -1,10 +1,12 @@
 package cn.itcast.entity;
 
+import java.sql.Timestamp;
+
 public class GuijiInfo {
 
 	  private String devID;
 	  private String cellID;
-      private String time;
+      private Timestamp time;
 	  private String GPS_longitude;
 	  private String GPS_latitude;
 	  private Integer carNum;
@@ -12,7 +14,7 @@ public class GuijiInfo {
 	  
 	  
 	  //devID,time,GPS_lontitude,GPS_latitude,
-	public GuijiInfo(String devID, String cellID, String time, String GPS_longitude,
+	public GuijiInfo(String devID, String cellID, Timestamp time, String GPS_longitude,
 			String GPS_latitude,Integer carNum, String state) {
 		super();
 		this.devID = devID;
@@ -49,11 +51,11 @@ public class GuijiInfo {
 		this.devID = devID;
 	}
 
-	public String gettime() {
+	public Timestamp gettime() {
 		return time;
 	}
 
-	public void settime(String time) {
+	public void settime(Timestamp time) {
 		this.time = time;
 	}
 
