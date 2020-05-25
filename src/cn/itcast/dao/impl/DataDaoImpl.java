@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -212,7 +213,6 @@ public class DataDaoImpl<V> implements DataDao {
 				list.add(di);
 				map.put(cellID, list);
 			}
-			System.out.println(map);
 			return map;
 
 		} catch (SQLException e) {
@@ -237,17 +237,23 @@ public class DataDaoImpl<V> implements DataDao {
 				list.add(task);
 			}
 			double zonglucheng = 0;
-			for(int i = 1; i<=list.size(); i++) {
-				TaskInfo t1 = list.get(i);
-				TaskInfo t2 = list.get(i-1);
-				zonglucheng = zonglucheng + getDistanceMeter(t1.getWeidu(),t1.getJingdu(),t2.getWeidu(),t2.getJingdu());
+			String format = "";
+			if(list.size()>1) {
+				for(int i = 1; i<list.size(); i++) {
+					TaskInfo t1 = list.get(i);
+					TaskInfo t2 = list.get(i-1);
+					zonglucheng = zonglucheng + getDistanceMeter(t1.getWeidu(),t1.getJingdu(),t2.getWeidu(),t2.getJingdu());
+				}
+				//Integer speed = value.stream().collect(Collectors.summingInt(GuijiInfo::getCarNum));
+				resultInfo.setDistance(String.format("%.2f", zonglucheng));
+				long startTime = list.get(0).getTime().getTime();
+				long endTime = list.get(list.size()-1).getTime().getTime();
+				long cha = (endTime - startTime)/1000;
+				double sp = zonglucheng/cha;
+				format = String.format("%.2f", sp);
+				System.out.println(startTime+"  "+endTime+"  "+cha);
 			}
-			Integer speed = value.stream().collect(Collectors.summingInt(GuijiInfo::getCarNum));
-			resultInfo.setDistance(zonglucheng);
-			Timestamp startTime = list.get(0).getTime();
-			Timestamp endTime = list.get(list.size()).getTime();
-			
-			resultInfo.setSpeed(null);
+			resultInfo.setSpeed(format);
 			resultInfo.setList(list);
 			result.put(entry.getKey(), resultInfo);
 		}

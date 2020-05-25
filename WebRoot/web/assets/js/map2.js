@@ -1,3 +1,6 @@
+var marker,lineArr;
+var polyline,passedPolyline;
+var markers=[];
 $(function(){
 	
 	var json_data,json_info;
@@ -296,43 +299,103 @@ $(function(){
 			polyline.clearMap;
 		}
 		var line = [];
-		debugger
 		for(var p in arr.list){
 			var tmp = [];
 			tmp.push(arr.list[p].jingdu);
 			tmp.push(arr.list[p].weidu);
 			line.push(tmp);
 		}
-		//选定两个坐标
-		var line1 = [
-			[114.254283,30.567507],
-			[115.254283,30.567507],
-			[116.40,39.90]
-		];
+		marker = line;
+		lineArr = line;
+	    marker = new AMap.Marker({
+	        map: map,
+	        position: line[0],
+	        icon: "https://webapi.amap.com/images/car.png",
+	        offset: new AMap.Pixel(-26, -13),
+	        autoRotation: true,
+	        angle:-90,
+	    });
+	    markers.push(marker)
+		AMap.event.addDomListener(document.getElementById('liebiao'), 'click', function() {
+			    // 设置缩放级别和中心点
+			    map.setZoomAndCenter(14, line[0]);
+			    // 在新中心点添加 marker 
+			    var marker = new AMap.Marker({
+			        map: map,
+			        position: line[0]
+			    });
+		});
 		console.log(line)
 		if(line.length<2){
 			alert("该路线没有移动")
 		}
-		//设置连接线样式
-		var polyline = new AMap.Polyline({
+		//设置连接线样式 polyline passedPolyline
+		 polyline = new AMap.Polyline({
+			map: map,
     		path: line,          //设置线覆盖物路径
-    		strokeColor: "#3366FF", //线颜色
-            strokeOpacity: 1,       //线透明度
+    		strokeColor: "#28F", //线颜色
+            //strokeOpacity: 1,       //线透明度
             strokeWeight: 10,        //线宽
-            strokeStyle: "solid",   //线样式
+            //strokeStyle: "solid",   //线样式
             showDir:true,
-            strokeDasharray: [10, 5] //补充线样式
+            //strokeDasharray: [10, 5] //补充线样式
 		});
+		
+	     passedPolyline = new AMap.Polyline({
+	        map: map,
+	        // path: lineArr,
+	        strokeColor: "#AF5",  //线颜色
+	        // strokeOpacity: 1,     //线透明度
+	        strokeWeight: 6,      //线宽
+	        // strokeStyle: "solid"  //线样式
+	    });
 		
 		polyline.setMap(map);
 	}
 	
 	 $("#liebiao").on("click",".luxian",function(){ 
+		 if(marker){
+			 marker.setMap(null);
+		 }
+		 console.log(markers)
+		 map.remove(markers);
+		 if(polyline){
+				polyline.setMap(null);
+		 }
+		 if(passedPolyline){
+				polyline.setMap(null);
+		 }
+		 
 		 var data = canshu;
 		 var luxian = $(this).attr("data");
-		 console.log(luxian);
 		 loadguiji(canshu[luxian])
+		 console.log(canshu[luxian]);
+		 $("#sudu").text(canshu[luxian].speed + "m/s");
+		 $("#lucheng").text(canshu[luxian].distance + "m");
 	 })
 });
+
+marker.on('moving', function (e) {
+    passedPolyline.setPath(e.passedPath);
+});
+
+map.setFitView();
+
+function startAnimation () {
+    marker.moveAlong(lineArr, 200);
+}
+
+function pauseAnimation () {
+    marker.pauseMove();
+}
+
+function resumeAnimation () {
+    marker.resumeMove();
+}
+
+function stopAnimation () {
+    marker.stopMove();
+}
+
 
 	

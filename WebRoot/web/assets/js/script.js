@@ -26,9 +26,7 @@ $(function() {
 	window.onresize = change;
 
 	function load() {
-
 		if (sessionStorage.userGrade)
-
 			if (sessionStorage.userGrade == "2") {
 				// 临时用户
 				tempSelect();

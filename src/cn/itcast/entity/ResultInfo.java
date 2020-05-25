@@ -5,20 +5,27 @@ import java.util.List;
 public class ResultInfo {
 
 
-	private Double distance;
-	private Double speed;	//平均速度
+	private String distance;
+	private String speed;	//平均速度
+	private String speed2;
 	private List<TaskInfo> list;
-	public Double getDistance() {
+	public String getDistance() {
 		return distance;
 	}
-	public void setDistance(Double distance) {
+	public void setDistance(String distance) {
 		this.distance = distance;
 	}
-	public Double getSpeed() {
+	public String getSpeed() {
 		return speed;
 	}
-	public void setSpeed(Double speed) {
+	public void setSpeed(String speed) {
 		this.speed = speed;
+	}
+	public String getSpeed2() {
+		return speed2;
+	}
+	public void setSpeed2(String speed2) {
+		this.speed2 = speed2;
 	}
 	public List<TaskInfo> getList() {
 		return list;
@@ -26,6 +33,9 @@ public class ResultInfo {
 	public void setList(List<TaskInfo> list) {
 		this.list = list;
 	}
-	
+	@Override
+	public String toString() {
+		return "ResultInfo [distance=" + distance + ", speed=" + speed + ", speed2=" + speed2 + ", list=" + list + "]";
+	}
 	
 }
