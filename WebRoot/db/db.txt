@@ -1,0 +1,5 @@
+INSERT INTO `cartocar`.`car_info`
+
+(`devID`, `time`, `state`, `GPS_longitude`, `GPS_latitude`, `cellID`, `carNum`, `warn`, `info1_devID`, `info1_FP`, `info1_RP`, `info1_time`, `info1_state`, `info1_longitude`, `info1_latitude`, `info1_cellID`, `info1_carNum`, `info2_devID`, `info2_FP`, `info2_RP`, `info2_time`, `info2_state`, `info2_longitude`, `info2_latitude`, `info2_cellID`, `info2_carNum`) 
+
+VALUES ('1', '2020-05-24 23:43:35', '4', NULL, 'NULL', '2', '60', '0', 'NULL', 'NULL', 'NULL', NULL, 'NULL', 'NULL', 'NULL', 'NULL', 'NULL', 'NULL', 'NULL', 'NULL', NULL, 'NULL', 'NULL', 'NULL', 'NULL', 'NULL');
