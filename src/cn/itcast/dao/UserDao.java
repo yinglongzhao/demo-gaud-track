@@ -9,4 +9,7 @@ public interface UserDao {
 	public String searchUserInfo(String username);
 	public void deleteUserInfo(String[] delId);
 	public void insertUserInfo(ArrayList<ArrayList<String>> results);
+	
+	//×¢ƒÔ
+	public void registerUser(String name,String passwd) throws Exception;
 }

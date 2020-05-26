@@ -19,134 +19,156 @@ public class UserDaoImpl implements UserDao {
 	 */
 	@Override
 	public JSONObject getGrade(String username, String password) {
-		Connection con=JdbcUtils.getConnection();
+		Connection con = JdbcUtils.getConnection();
 		JSONObject jsondata = new JSONObject();
 		try {
-			String sql="SELECT * FROM usr where username='"+username+"'";
-			PreparedStatement pstmt=con.prepareStatement(sql);
+			String sql = "SELECT * FROM usr where username='" + username + "'";
+			PreparedStatement pstmt = con.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()){
-				String name=rs.getString(1);
-		    	String pass=rs.getString(2);
-		    	String grade=rs.getString(3);
-		    	String devId=rs.getString(4);
-		    	System.out.println("this is grade"+grade);
-		    	System.out.println("this is devId"+devId);
-		    	jsondata.put("name", name);
-		    	jsondata.put("grade", grade);
-	        	jsondata.put("devId", devId);
-		        if ( username.equals(name)&&password.equals(pass)){
-		        	return jsondata;
-		        }else{	
-		        	return jsondata;
-		        }
+			while (rs.next()) {
+				String name = rs.getString(1);
+				String pass = rs.getString(2);
+				String grade = rs.getString(3);
+				String devId = rs.getString(4);
+				System.out.println("this is grade" + grade);
+				System.out.println("this is devId" + devId);
+				jsondata.put("name", name);
+				jsondata.put("grade", grade);
+				jsondata.put("devId", devId);
+				if (username.equals(name) && password.equals(pass)) {
+					return jsondata;
+				} else {
+					return jsondata;
+				}
 			}
-		    } catch (SQLException e) {
-						e.printStackTrace();
-		    }finally{
-			      JdbcUtils.closeConnection(con);
-		    }
-    	return jsondata;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtils.closeConnection(con);
+		}
+		return jsondata;
 	}
+
 	/*
 	 * 得到全部用户的信息
 	 */
 	@Override
 	public String getUserInfo() {
-		Gson gson=new Gson();
-		List<UserInfo> list_data_info=new LinkedList<UserInfo>();
-		Connection con=JdbcUtils.getConnection();
+		Gson gson = new Gson();
+		List<UserInfo> list_data_info = new LinkedList<UserInfo>();
+		Connection con = JdbcUtils.getConnection();
 		try {
-			String sql=" SELECT * from usr";
-			PreparedStatement pstmt=con.prepareStatement(sql);			
+			String sql = " SELECT * from usr";
+			PreparedStatement pstmt = con.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()){
-				String username=rs.getString(1);
-				String password=rs.getString(2);
-				String grade=rs.getString(3);
-				String devId=rs.getString(4);
-				UserInfo ui=new UserInfo(username,password,grade,devId);
-	            list_data_info.add(ui);  	
+			while (rs.next()) {
+				String username = rs.getString(1);
+				String password = rs.getString(2);
+				String grade = rs.getString(3);
+				String devId = rs.getString(4);
+				UserInfo ui = new UserInfo(username, password, grade, devId);
+				list_data_info.add(ui);
 			}
 			return gson.toJson(list_data_info);
-		
-		    } catch (SQLException e) {
-						e.printStackTrace();
-		    }finally{
-			      JdbcUtils.closeConnection(con);
-		    }
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtils.closeConnection(con);
+		}
 		return gson.toJson(list_data_info);
 	}
+
 	/*
 	 * 查找某用户的信息
 	 */
 	@Override
 	public String searchUserInfo(String username) {
-		Gson gson=new Gson();
-		List<UserInfo> list_data_info=new LinkedList<UserInfo>();
-		Connection con=JdbcUtils.getConnection();
+		Gson gson = new Gson();
+		List<UserInfo> list_data_info = new LinkedList<UserInfo>();
+		Connection con = JdbcUtils.getConnection();
 		try {
-			String sql=" SELECT * from usr where username='"+username+"'";
-			PreparedStatement pstmt=con.prepareStatement(sql);			
+			String sql = " SELECT * from usr where username='" + username + "'";
+			PreparedStatement pstmt = con.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()){
-				username=rs.getString(1);
-				String password=rs.getString(2);
-				String grade=rs.getString(3);
-				String devId=rs.getString(4);
-				UserInfo ui=new UserInfo(username,password,grade,devId);
-	            list_data_info.add(ui);  	
+			while (rs.next()) {
+				username = rs.getString(1);
+				String password = rs.getString(2);
+				String grade = rs.getString(3);
+				String devId = rs.getString(4);
+				UserInfo ui = new UserInfo(username, password, grade, devId);
+				list_data_info.add(ui);
 			}
 			return gson.toJson(list_data_info);
-		
-		    } catch (SQLException e) {
-						e.printStackTrace();
-		    }finally{
-			      JdbcUtils.closeConnection(con);
-		    }
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtils.closeConnection(con);
+		}
 		return gson.toJson(list_data_info);
 	}
+
 	/*
 	 * 删除一组用户信息
 	 */
 	@Override
 	public void deleteUserInfo(String[] usernames) {
-		Connection con=JdbcUtils.getConnection();
+		Connection con = JdbcUtils.getConnection();
 		try {
-			for(String un: usernames){
-				String sql="delete FROM usr where username='"+un+"'";
-				PreparedStatement pstmt=con.prepareStatement(sql);
+			for (String un : usernames) {
+				String sql = "delete FROM usr where username='" + un + "'";
+				PreparedStatement pstmt = con.prepareStatement(sql);
 				pstmt.executeUpdate();
 			}
-	    } catch (SQLException e) {
-					e.printStackTrace();
-	    } finally{
-		      JdbcUtils.closeConnection(con);
-	    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtils.closeConnection(con);
+		}
 	}
+
 	/*
 	 * 插入一组用户信息
 	 */
 	@Override
 	public void insertUserInfo(ArrayList<ArrayList<String>> results) {
-		Connection con=JdbcUtils.getConnection();
+		Connection con = JdbcUtils.getConnection();
 		String username;
 		String password;
 		String devId;
 		String grade;
 		try {
-			for(ArrayList<String> row:results){
-				username=row.get(0);
-				password=row.get(1);
-				devId=row.get(2);
-				grade=row.get(3);
-				String sql=" INSERT INTO usr VALUES('"+ username+"','"+ password+"','"+ grade+"','"+devId +"')";
+			for (ArrayList<String> row : results) {
+				username = row.get(0);
+				password = row.get(1);
+				devId = row.get(2);
+				grade = row.get(3);
+				String sql = " INSERT INTO usr VALUES('" + username + "','" + password + "','" + grade + "','" + devId
+						+ "')";
 				PreparedStatement pstmt;
 				pstmt = con.prepareStatement(sql);
 				pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void registerUser(String name, String passwd) throws Exception {
+		// TODO Auto-generated method stub
+		Connection con = JdbcUtils.getConnection();
+		String devId = "1";
+		String grade = "1";
+		try {
+			String sql = " INSERT INTO usr VALUES('" + name + "','" + passwd + "','" + grade + "','" + devId + "')";
+			PreparedStatement pstmt;
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception();
 		}
 	}
 
