@@ -11,5 +11,5 @@ public interface UserDao {
 	public void insertUserInfo(ArrayList<ArrayList<String>> results);
 	
 	//×¢ƒÔ
-	public void registerUser(String name,String passwd) throws Exception;
+	public void registerUser(String name,String passwd,String dev) throws Exception;
 }

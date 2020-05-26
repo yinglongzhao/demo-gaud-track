@@ -372,6 +372,7 @@ $(function(){
 		 console.log(canshu[luxian]);
 		 $("#sudu").text(canshu[luxian].speed + "m/s");
 		 $("#lucheng").text(canshu[luxian].distance + "m");
+		 $("#shijian").text(canshu[luxian].speed2 + "s");
 	 })
 });
 

@@ -252,6 +252,7 @@ public class DataDaoImpl<V> implements DataDao {
 				double sp = zonglucheng/cha;
 				format = String.format("%.2f", sp);
 				System.out.println(startTime+"  "+endTime+"  "+cha);
+				resultInfo.setSpeed2(cha+"");
 			}
 			resultInfo.setSpeed(format);
 			resultInfo.setList(list);

@@ -31,11 +31,12 @@ public class RegisterServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
+		String devId = request.getParameter("devId");
 		System.out.println("×¢²á " + name + " " + password);
 		UserDao dd = DaoFactory.getInstance().getUserDao();
 		PrintWriter out = response.getWriter();
 		try {
-			dd.registerUser(name, password);
+			dd.registerUser(name, password,devId);
 			out.write("×¢²á³É¹¦£¡£¡£¡");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -35,6 +35,7 @@ $(function() {
 			} else {
 				console.log(sessionStorage);
 				$("#user").text(sessionStorage.name + "");
+				$("#devId").text(sessionStorage.devId + "");
 				$("#num").attr("disabled", false);
 				listSelect();
 				showLocation();

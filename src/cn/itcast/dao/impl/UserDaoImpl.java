@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao {
 		Connection con = JdbcUtils.getConnection();
 		JSONObject jsondata = new JSONObject();
 		try {
-			String sql = "SELECT * FROM usr where username='" + username + "'";
+			String sql = "SELECT * FROM usr where username='" + username + "' and password='"+password+"'";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -156,10 +156,10 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void registerUser(String name, String passwd) throws Exception {
+	public void registerUser(String name, String passwd,String dev) throws Exception {
 		// TODO Auto-generated method stub
 		Connection con = JdbcUtils.getConnection();
-		String devId = "1";
+		String devId = dev;
 		String grade = "1";
 		try {
 			String sql = " INSERT INTO usr VALUES('" + name + "','" + passwd + "','" + grade + "','" + devId + "')";
