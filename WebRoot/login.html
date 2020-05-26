@@ -59,13 +59,13 @@
 						'password' : password
 					//'flag':"user"
 					},
-					dataType : 'json',
+					dataType : 'text',
 					success : function(res, status) {
 						console.log(res)
-						alert("注册成功");
+						alert(res);
 					},
 					error : function(res, status) {
-						alert("注册失败");
+						alert(res);
 					}
 				});
 			});

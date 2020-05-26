@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonObject;
+
 import cn.itcast.dao.UserDao;
 import cn.itcast.factory.DaoFactory;
 
@@ -34,10 +36,11 @@ public class RegisterServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			dd.registerUser(name, password);
-			out.write(1);
+			out.write("注册成功！！！");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			out.write("注册失败，请更换其他用户名！！");
 		}
 	}
 
